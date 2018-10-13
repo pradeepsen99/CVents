@@ -13,6 +13,7 @@ import Firebase
 class MapController: UIViewController {
 
     let locationManager = CLLocationManager()
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,8 @@ class MapController: UIViewController {
         }
         
         self.navigationController?.navigationBar.topItem?.title = "Map"
+        
+        ref = Database.database().reference()
 
     }
 
