@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item 2-->
+        <scene sceneID="5SU-fS-MXx">
+            <objects>
+                <viewController id="dny-vg-5hC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="58W-sI-XYL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Xyn-cN-1Fo"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="EFP-BY-unl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wcf-O6-WEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-409" y="73"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="XG3-w0-qT4">
+            <objects>
+                <viewController id="r7m-Xj-AGY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="se5-T8-O34">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="lpr-ha-RNB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="D3M-bY-AlG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vU8-s5-GdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-409" y="-593"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="YT7-aE-UqU">
+            <objects>
+                <tabBarController id="Rki-8U-gzd" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qyv-0I-riG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="r7m-Xj-AGY" kind="relationship" relationship="viewControllers" id="xh0-gb-Cga"/>
+                        <segue destination="dny-vg-5hC" kind="relationship" relationship="viewControllers" id="c5L-jn-obw"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tSU-gG-9ay" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1361" y="-259"/>
+        </scene>
+    </scenes>
+</document>
