@@ -31,6 +31,7 @@ class ActivitiesController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.title = "Activities"
 
+
     }
     
     
