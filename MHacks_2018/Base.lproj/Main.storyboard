@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rki-8U-gzd">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="YT7-aE-UqU">
+            <objects>
+                <tabBarController id="Rki-8U-gzd" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qyv-0I-riG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="pVs-1s-qnQ" kind="relationship" relationship="viewControllers" id="iaW-WQ-xyu"/>
+                        <segue destination="olm-Uj-Gei" kind="relationship" relationship="viewControllers" id="QKv-5F-BRA"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tSU-gG-9ay" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1361" y="-259"/>
+        </scene>
+        <!--Activity-->
+        <scene sceneID="1rZ-vL-ZXh">
+            <objects>
+                <navigationController id="olm-Uj-Gei" userLabel="Activity" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Activities" image="info" id="d8F-1g-SOU"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Xc-co-Vn9">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bEa-1P-1Wd" kind="relationship" relationship="rootViewController" id="fnj-aL-T1e"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VOy-hi-bGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-643" y="-49"/>
+        </scene>
+        <!--Activities Controller-->
+        <scene sceneID="9Qh-UK-GXg">
+            <objects>
+                <viewController id="bEa-1P-1Wd" customClass="ActivitiesController" customModule="MHacks_2018" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gp7-4x-XWa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uIQ-cl-K9I"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="abG-ZM-ocM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fFR-2J-y9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="125" y="-46"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="mCj-4K-WVl">
+            <objects>
+                <navigationController id="pVs-1s-qnQ" userLabel="Map" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="tep-7U-NHn"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lE8-9H-ziO">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="d6K-mi-h1L" kind="relationship" relationship="rootViewController" id="sAW-QA-PiC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iOh-Oi-H1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-638" y="-737"/>
+        </scene>
+        <!--Map Controller-->
+        <scene sceneID="aP0-1N-FuP">
+            <objects>
+                <viewController id="d6K-mi-h1L" customClass="MapController" customModule="MHacks_2018" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xJV-I0-QKu" customClass="MapC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pUB-S2-ZV6">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="emz-Ky-2q0"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="QzP-Td-tOs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eqD-E5-UKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="125.59999999999999" y="-737.18140929535241"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="info" width="30" height="30"/>
+        <image name="map" width="30" height="30"/>
+    </resources>
+</document>

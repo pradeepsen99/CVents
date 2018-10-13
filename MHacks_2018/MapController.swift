@@ -34,10 +34,8 @@ class MapController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = "Map"
         
         let rootRef = Database.database().reference()
-        
-        ref.observe(.value, with: { snapshot in
-            print(snapshot.value as Any)
-        })
+        print(rootRef.key)
+
         //let itemsRef = rootRef.child("grocery-items")
         
 
