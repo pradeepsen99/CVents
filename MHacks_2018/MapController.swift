@@ -13,7 +13,7 @@ import Firebase
 class MapController: UIViewController {
     
     let locationManager = CLLocationManager()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,9 @@ class MapController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.title = "Map"
         
-
-    
+        
+        
+        
+    }
     
 }
-
