@@ -9,25 +9,39 @@ import UIKit
 import CoreLocation
 import Firebase
 
-class ActivitiesController: UIViewController {
+class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return eventNameArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+        cell.textLabel!.text = "\(eventNameArr[indexPath.row])"
+        return cell
+    }
+    
+    var stopTableView: UITableView!
     
     let locationManager = CLLocationManager()
     
     var ref: DatabaseReference!
     
-    var eventsUserPhoneArr: Array<String> = Array()
-    var eventLatArr: Array<Double> = Array()
-    var eventLongArr: Array<Double> = Array()
-    var eventNameArr: Array<String> = Array()
+    var eventsUserPhoneArr: Array<String> = ["0123456789", "0987654321"]
+    var eventLatArr: Array<Double> = [1.0, 1.1]
+    var eventLongArr: Array<Double> = [1.0, 1.1]
+    var eventNameArr: Array<String> = ["Project #1","Project #2"]
+    
+    var downloadComplete: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("hi")
         
         // For use when the app is open
         DispatchQueue.main.async {
             //Requests the user to provide access to use their location.
             self.locationManager.requestWhenInUseAuthorization()
-            getData()
         }
         
         // If location services is enabled get the users location
@@ -39,23 +53,27 @@ class ActivitiesController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.title = "Activities"
         
-        let rootRef = Database.database().reference()
-        let eventRef = rootRef.child("Events")
+        self.getData()
+
+        displayTable()
+    }
+    
+    func displayTable(){
+        let barHeight: CGFloat = 0
+        let displayWidth: CGFloat = self.view.frame.width
+        let displayHeight: CGFloat = self.view.frame.height
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        self.stopTableView = UITableView(frame: CGRect(x: 0, y: barHeight, width: displayWidth, height: displayHeight - barHeight))
+        self.stopTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        self.stopTableView.dataSource = self
+        self.stopTableView.delegate = self
+        self.stopTableView.separatorStyle = .none
+        view.addSubview(self.stopTableView)
     }
     
     func createData(Users: String, name: String, lat: Double, long: Double){
         let messagesDB = Database.database().reference().child("Events")
-        let messageDictionary : NSDictionary = ["Users" : "0123456789,0987654321", "name" : "testbob", "lat": 1.0, "long": 1.0]
+        let messageDictionary : NSDictionary = ["Users" : Users, "name" : name, "lat": lat, "long": long]
         
         messagesDB.childByAutoId().setValue(messageDictionary) {
             (error, ref) in
@@ -72,6 +90,9 @@ class ActivitiesController: UIViewController {
     func getData(){
         let messageDB = Database.database().reference().child("Events")
         
+        //Resets the arrays before adding.
+
+        
         messageDB.observe(.childAdded, with: { snapshot in
             
             let snapshotValue = snapshot.value as! NSDictionary
@@ -84,7 +105,9 @@ class ActivitiesController: UIViewController {
             self.eventLatArr.append(lat)
             let long = snapshotValue["long"] as! Double
             self.eventLongArr.append(long)
+            print(self.eventsUserPhoneArr.count)
         })
+        downloadComplete = true
     }
 }
 
