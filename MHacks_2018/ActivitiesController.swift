@@ -26,10 +26,10 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var ref: DatabaseReference!
     
-    var eventsUserPhoneArr: Array<String> = ["0123456789", "0987654321"]
-    var eventLatArr: Array<Double> = [1.0, 1.1]
-    var eventLongArr: Array<Double> = [1.0, 1.1]
-    var eventNameArr: Array<String> = ["Project #1","Project #2"]
+    var eventsUserPhoneArr: Array<String> = Array()
+    var eventLatArr: Array<Double> = Array()
+    var eventLongArr: Array<Double> = Array()
+    var eventNameArr: Array<String> = Array()
     
     var downloadComplete: Bool = false
     
@@ -51,11 +51,57 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             locationManager.startUpdatingLocation()
         }
         
-        self.navigationController?.navigationBar.topItem?.title = "Activities"
+        self.navigationController?.navigationBar.topItem?.title = "Map"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showInputDialog))
+
         
         self.getData()
 
         displayTable()
+    }
+
+    
+    
+    @objc func showInputDialog(){
+        //Creating UIAlertController and
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: "Enter details?", message: "Enter your name and email", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+            
+            //getting the input values from user
+            let name = alertController.textFields?[0].text
+            let lat = alertController.textFields?[1].text
+            let long = alertController.textFields?[2].text
+            let numbers = alertController.textFields?[3].text
+           
+            self.createData(Users: numbers!, name: name!, lat: Double(lat!)!, long: Double(long!)!)
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Name"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Latitude"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Longitude"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Numbers seperated by commas"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func displayTable(){
@@ -91,7 +137,10 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         let messageDB = Database.database().reference().child("Events")
         
         //Resets the arrays before adding.
-
+        eventsUserPhoneArr.removeAll()
+        eventNameArr.removeAll()
+        eventLatArr.removeAll()
+        eventLongArr.removeAll()
         
         messageDB.observe(.childAdded, with: { snapshot in
             
@@ -106,8 +155,20 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             let long = snapshotValue["long"] as! Double
             self.eventLongArr.append(long)
             print(self.eventsUserPhoneArr.count)
+            self.stopTableView.reloadData()
         })
         downloadComplete = true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        eventViewer(Users: eventsUserPhoneArr[indexPath.row], name: eventNameArr[indexPath.row], lat: eventLatArr[indexPath.row], long: eventLongArr[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension ActivitiesController{
+    func eventViewer(Users: String, name: String, lat: Double, long: Double){
+        navigationController?.pushViewController(EventPageController(Users: Users, name: name, lat: lat, long: long), animated: true)
     }
 }
 
