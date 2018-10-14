@@ -62,10 +62,22 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.getData()
 
+        //sendSMS(numToSend: "6307061275")
+        
         displayTable()
         
-        sendSMS(numToSend: "7084913930")
     }
+    
+//    func buttonConfig(){
+//        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+//        button.backgroundColor = .green
+//        button.setTitle("Test Button", for: .normal)
+//        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+//
+//        self.view.addSubview(button)
+//    }
+//
+    
     
     func sendSMS(numToSend: String)
     {
@@ -76,7 +88,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         //Note replace + = %2B , for To and From phone number
         let fromNumber = "%2B16307934370"// actual number is +14803606445
         let toNumber = "%2B1"+numToSend// actual number is +919152346132
-        let message = "SUGON DEEZ NUTZ"
+        let message = "One of your friends have invited you to join one of their events. Open up CVents to check it out!"
         
         // Build the request
         let request = NSMutableURLRequest(url: NSURL(string:"https://\(twilioSID):\(twilioSecret)@api.twilio.com/2010-04-01/Accounts/\(twilioSID)/SMS/Messages")! as URL)
@@ -151,7 +163,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         self.stopTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         self.stopTableView.dataSource = self
         self.stopTableView.delegate = self
-        self.stopTableView.separatorStyle = .none
+        self.stopTableView.separatorStyle = .singleLine
         view.addSubview(self.stopTableView)
     }
     
