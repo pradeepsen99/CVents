@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.3)
   - Firebase/Core (5.10.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.2.0)
@@ -57,11 +58,13 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - Firebase/Core
   - Firebase/Database
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -73,6 +76,7 @@ SPEC REPOS:
     - nanopb
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Firebase: 6691d47562a780c26281ce8464518faafc90c610
   FirebaseAnalytics: 831f1f127f4a75698e9875a87bf7e2668730d953
   FirebaseCore: c6079de64c1a87000e52e9b408dddcadc901177f
@@ -83,6 +87,6 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: ef8c1ecc727814c211f8888c6d0835c050442436
+PODFILE CHECKSUM: da06b2ad917e9fe4bb8c17376ecfdd7416c2762c
 
 COCOAPODS: 1.5.3

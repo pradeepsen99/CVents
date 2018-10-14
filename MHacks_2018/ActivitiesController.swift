@@ -8,6 +8,9 @@
 import UIKit
 import CoreLocation
 import Firebase
+import Foundation
+import Alamofire
+
 
 class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +34,8 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
     var eventLongArr: Array<Double> = Array()
     var eventNameArr: Array<String> = Array()
     
+    var tempArr: Array<String> = Array()
+    
     var downloadComplete: Bool = false
     
     override func viewDidLoad() {
@@ -53,11 +58,42 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.navigationController?.navigationBar.topItem?.title = "Map"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showInputDialog))
-
+        
         
         self.getData()
 
         displayTable()
+        
+        sendSMS(numToSend: "7084913930")
+    }
+    
+    func sendSMS(numToSend: String)
+    {
+        
+        let twilioSID = "AC227456c7709f73c9822614f1ad01ade3"
+        let twilioSecret = "262db79790cdfcf98b96b6e7881fc46e"
+        
+        //Note replace + = %2B , for To and From phone number
+        let fromNumber = "%2B16307934370"// actual number is +14803606445
+        let toNumber = "%2B1"+numToSend// actual number is +919152346132
+        let message = "SUGON DEEZ NUTZ"
+        
+        // Build the request
+        let request = NSMutableURLRequest(url: NSURL(string:"https://\(twilioSID):\(twilioSecret)@api.twilio.com/2010-04-01/Accounts/\(twilioSID)/SMS/Messages")! as URL)
+        request.httpMethod = "POST"
+        request.httpBody = "From=\(fromNumber)&To=\(toNumber)&Body=\(message)".data(using: String.Encoding.utf8)
+        
+        // Build the completion block and send the request
+        URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
+            print("Finished")
+            if let data = data, let responseDetails = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                // Success
+                print("Response: \(responseDetails)")
+            } else {
+                // Failure
+                print("Error: \(error)")
+            }
+        }).resume()
     }
 
     
@@ -77,6 +113,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             let numbers = alertController.textFields?[3].text
            
             self.createData(Users: numbers!, name: name!, lat: Double(lat!)!, long: Double(long!)!)
+            self.checkNumbers(numbers: numbers!)
         }
         
         //the cancel action doing nothing
@@ -95,6 +132,7 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter Numbers seperated by commas"
         }
+    
         
         //adding the action to dialogbox
         alertController.addAction(confirmAction)
@@ -157,7 +195,52 @@ class ActivitiesController: UIViewController, UITableViewDelegate, UITableViewDa
             print(self.eventsUserPhoneArr.count)
             self.stopTableView.reloadData()
         })
+        
+        
+        let messageDB2 = Database.database().reference().child("Users")
+        messageDB2.observe(.childAdded, with: { snapshot in
+            
+            let snapshotValue = snapshot.value as! NSDictionary
+            
+            let number = snapshotValue["number"] as! String
+            self.tempArr.append(number)
+            
+        })
         downloadComplete = true
+    }
+    
+    func checkNumbers(numbers: String){
+        let trimmedString = numbers.trimmingCharacters(in: .whitespaces)
+        print(trimmedString)
+        let trimStrArr: Array<String> = trimmedString.components(separatedBy: ",")
+        print(trimStrArr.count)
+        var numFinArr: Array<String> = Array()
+        for numbers in trimStrArr{
+            print("NUMBERS STR: " + numbers.count.description)
+            if(numbers.count == 10){
+                numFinArr.append(numbers)
+            }
+        }
+        print("PICKLE 2")
+        
+        print("PICKLE 1")
+        print(tempArr.count)
+        print(numFinArr.count)
+        for nums in numFinArr{
+            var tempSwitch: Bool = false
+            print("NUM: " + nums.description)
+            for nums2 in tempArr{
+                print("NUM2: " + nums2.description)
+                if(nums == nums2){
+                    tempSwitch = true
+                }
+            }
+            
+            if(tempSwitch){
+                sendSMS(numToSend: nums)
+            }
+        }
+
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

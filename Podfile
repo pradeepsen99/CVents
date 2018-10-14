@@ -6,6 +6,7 @@ target 'MHacks_2018' do
   use_frameworks!
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Alamofire', '~> 4.7'
 
   # Pods for MHacks_2018
 

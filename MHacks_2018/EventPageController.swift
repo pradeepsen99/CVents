@@ -38,7 +38,8 @@ class EventPageController: UIViewController {
         view.backgroundColor = .white
         
         self.navigationController?.navigationBar.topItem?.title = eventName
-
+        
+        
         
     }
     
