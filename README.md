@@ -1,4 +1,4 @@
-# CVents
+# CVents - MHacks 2018
 
 ## Inspiration
 We were inspired to make a project that would help streamline the arduous process of organizing events with your friends. Another thing we were trying to accomplish is to get people's sense of community stronger by giving people the option to join public events. 
